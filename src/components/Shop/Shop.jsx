@@ -16,24 +16,45 @@ const Shop = () => {
 
     useEffect(()=>{
         const storedCart = getShoppingCart(); // object ta saved hoye gelo.
-
+        const savedCart = [];
         for(const id in storedCart){
             // get the products by using Id
             const addedProduct = products.find(product => product.id==id);
             const quantity = storedCart[id];
+            if(addedProduct){
+                addedProduct.quantity = quantity;
+               
+                savedCart.push(addedProduct);
+            }
             
-           addedProduct.quantity = quantity;
-           console.log(addedProduct);
+           
             
         }
+        setCart(savedCart);
+        console.log(cart);
     },[products]);
 
     const handleAddToCart = (product) => {
         // cart.push(product); 
-        const newCart = [...cart, product];
+        let newCart = [];
+        const exists = cart.find(pd => pd.id==product.id);
+        if(!exists){
+            product.quantity=1;
+            newCart=[...cart, product];
+        } else {
+            exists.quantity = exists.quantity+1;
+            const remaining = cart.filter(pd => pd.id !== product.id);
+            newCart = [...remaining, exists];
+        }
         setCart(newCart);
         addToDb(product.id);
         
+    }
+
+    let quantity = 0;
+    for(const product of cart){
+       // product.quantity = product.quantity || 1;
+        quantity = quantity + product.quantity;
     }
 
     return (
@@ -49,7 +70,7 @@ const Shop = () => {
             </div>
             <div className="cart-container">
                 <h4>Order Summary</h4>
-                <p>Selected Items: {cart.length}</p>
+                <p>Selected Items: {quantity}</p>
             </div>
         </div>
     );
