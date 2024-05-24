@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Product from '../Product/Product';
 import './Shop.css';
 import {addToDb, getShoppingCart} from '../../utilities/fakedb';
+import Cart from '../Cart/Cart';
 
 const Shop = () => {
     
@@ -51,11 +52,7 @@ const Shop = () => {
         
     }
 
-    let quantity = 0;
-    for(const product of cart){
-       // product.quantity = product.quantity || 1;
-        quantity = quantity + product.quantity;
-    }
+    
 
     return (
         <div className='shop-container'>
@@ -69,8 +66,7 @@ const Shop = () => {
                 }
             </div>
             <div className="cart-container">
-                <h4>Order Summary</h4>
-                <p>Selected Items: {quantity}</p>
+                <Cart cart={cart}></Cart>
             </div>
         </div>
     );
