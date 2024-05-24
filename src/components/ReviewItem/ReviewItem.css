@@ -1,11 +1,29 @@
 .review-item{
     width: 571px;
-    height: 107px;
+ 
     border: 1px solid tomato;
     border-radius: 8px;
     margin-bottom: 25px;
+    display: flex;
+    padding: 10px;
 }
 .review-item img{
     width: 91px;
     height: 91px;
+    border-radius: 6px;
+
 }
+
+.review-item .product-title{
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    letter-spacing: 0.0015em;
+}
+.review-details {
+    flex-grow: 1;
+}
+.review-details p{
+    margin: 0 15px;
+}
+
